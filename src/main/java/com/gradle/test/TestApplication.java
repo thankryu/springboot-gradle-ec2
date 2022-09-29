@@ -17,7 +17,6 @@ public class TestApplication {
 	@RequestMapping
 	public String Hello(){
 		System.out.println("hi kyounghan!");
-		return "hello!!!";
+		return "2222hello!!!";
 	}
-
 }
