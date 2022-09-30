@@ -1,6 +1,6 @@
-package com.gradle.main.service;
+package com.gradle.springboot.main.service;
 
-import com.gradle.main.vo.MainVo;
+import com.gradle.springboot.main.vo.MainVo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

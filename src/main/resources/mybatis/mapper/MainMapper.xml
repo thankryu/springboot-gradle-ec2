@@ -3,9 +3,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.gradle.main.repository.MemberRepository">
+<mapper namespace="com.gradle.springboot.main.repository.MemberRepository">
 
-    <select id="getAllDataList" resultType="com.gradle.main.repository.MemberRepository">
+    <select id="getAllMember" resultType="com.gradle.springboot.main.vo.MainVo">
         SELECT * FROM user;
     </select>
 
