@@ -1,4 +1,4 @@
-package com.gradle.springboot.Cart;
+package com.gradle.springboot.cart;
 
 import lombok.Data;
 
