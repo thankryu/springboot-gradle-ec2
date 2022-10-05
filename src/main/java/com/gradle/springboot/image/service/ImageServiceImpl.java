@@ -4,6 +4,7 @@ import com.gradle.springboot.image.dao.ImageRepository;
 import com.gradle.springboot.image.vo.ImageDetailDto;
 import com.gradle.springboot.image.vo.ImageDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +19,10 @@ public class ImageServiceImpl implements ImageService {
     @Autowired
     ImageRepository imageDao;
 
-    private static String FILE_PATH = "C:\\One\\OneDrive\\pic";
+    @Value("onefolder.location")
+    private String FILE_PATH;
+
+    // private static String FILE_PATH = "C:\\One\\OneDrive\\pic";
 
     /**
      * 파일 목록 읽기
