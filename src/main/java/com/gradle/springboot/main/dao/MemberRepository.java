@@ -1,8 +1,9 @@
-package com.gradle.springboot.main.repository;
+package com.gradle.springboot.main.dao;
+
+import com.gradle.springboot.main.vo.MainVo;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
-import org.apache.ibatis.annotations.Mapper;
-import com.gradle.springboot.main.vo.MainVo;
 
 @Mapper
 public interface MemberRepository {

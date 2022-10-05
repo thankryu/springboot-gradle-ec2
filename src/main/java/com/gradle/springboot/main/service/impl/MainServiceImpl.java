@@ -1,6 +1,6 @@
 package com.gradle.springboot.main.service.impl;
 
-import com.gradle.springboot.main.repository.MemberRepository;
+import com.gradle.springboot.main.dao.MemberRepository;
 import com.gradle.springboot.main.service.MainService;
 import com.gradle.springboot.main.vo.MainVo;
 import org.springframework.beans.factory.annotation.Autowired;

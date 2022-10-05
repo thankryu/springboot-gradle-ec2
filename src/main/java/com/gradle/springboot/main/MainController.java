@@ -1,4 +1,4 @@
-package com.gradle.springboot.main.controller;
+package com.gradle.springboot.main;
 
 import com.gradle.springboot.main.service.MainService;
 import com.gradle.springboot.main.vo.MainVo;
