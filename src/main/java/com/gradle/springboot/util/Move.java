@@ -10,6 +10,8 @@ public class Move {
     public static void copy(File sourceF, File targetF){
         File[] target_file = sourceF.listFiles();
         for (File file : target_file) {
+            System.out.println("targetF.getAbsolutePath()::"+targetF.getAbsolutePath());
+            // File temp = new File(targetF.getAbsolutePath() + File.separator + file.getName());
             File temp = new File(targetF.getAbsolutePath() + File.separator + file.getName());
             if(file.isDirectory()){
                 temp.mkdir();
@@ -37,6 +39,7 @@ public class Move {
 
                 }
             }
+            System.out.println("지나감");
         }
     }
 
