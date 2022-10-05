@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gradle.springboot.image.dao.ImageRepository">
+
+    <select id="selectGalleryAuthList" resultType="com.gradle.springboot.image.vo.ImageDto">
+        SELECT * FROM gallery;
+    </select>
+
+    <select id="selectGallerySeq" resultType="int">
+    /* 갤러리 seq 생성 */
+    SELECT IFNULL(MAX(S1.GALLERY_SEQ), 0) + 1 AS GALLERY_SEQ FROM GALLERY S1
+	</select>
+
+    <insert id="insertGallery" parameterType="com.gradle.springboot.image.vo.ImageDto">
+    /* 갤러리 추가*/
+INSERT
+        INTO GALLERY
+        (
+            GALLERY_SEQ,
+            AUTHOR,
+            TYPE,
+            DEL_YN,
+            REG_DATE,
+            TAG,
+            LANG,
+            VIEW_CNT,
+            LIKE_CNT
+        )
+        VALUES
+            (
+              #{gallery_seq}
+            , #{author}
+            , 0
+            , 'N'
+            , #{reg_date}
+            , #{tag}
+            , #{lang}
+            , 0
+            , 0
+            )
+    </insert>
+
+    <insert id="insertGalleryDetail" parameterType="com.gradle.springboot.image.vo.ImageDetailDto">
+    INSERT
+        INTO GALLERY_DETAIL
+        (
+            GALLERY_SEQ,
+            PAGE_SEQ,
+            FILE_PATH,
+            FILE_NAME,
+            FILE_ETC
+        )
+        VALUES
+            (
+              #{gallery_seq}
+            , #{page_seq}
+            , #{file_path}
+            , #{file_name}
+            , #{file_etc}
+            )
+    </insert>
+
+</mapper>

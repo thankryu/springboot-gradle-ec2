@@ -1,21 +1,22 @@
 package com.gradle.springboot.image;
 
-import com.gradle.springboot.util.Move;
-import org.springframework.web.bind.annotation.GetMapping;
+import com.gradle.springboot.image.service.ImageService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.File;
-
 @RestController
+@Slf4j
+@RequestMapping("/image")
 public class ImageController {
 
-    File folder1 = new File("C:\\test1");
-    File folder2 = new File("C:\\test2");
+    @Autowired
+    private ImageService imageService;
 
-    @GetMapping("/move")
-    public void moveFile(){
-        System.out.println("폴더이동");
-        Move.copy(folder1, folder2);
-        Move.delete(folder1.toString());
+    @RequestMapping("/readFile")
+    public int readGalleryList(){
+        System.out.println("파일 읽기");
+        return imageService.readGalleryList();
     }
 }
