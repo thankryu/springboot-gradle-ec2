@@ -1,5 +1,7 @@
 package com.gradle.springboot.image.service;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.gradle.springboot.image.dao.ImageRepository;
 import com.gradle.springboot.image.vo.ImageDetailDto;
 import com.gradle.springboot.image.vo.ImageDto;
@@ -11,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.File;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
 
 @Service("ImageService")
@@ -21,18 +24,6 @@ public class ImageServiceImpl implements ImageService {
 
     @Value("onefolder.location")
     private String FILE_PATH;
-
-    // private static String FILE_PATH = "C:\\One\\OneDrive\\pic";
-
-    /**
-     * 파일 목록 읽기
-     * @return
-     */
-    @Override
-    public ImageDto selectGalleyList() {
-
-        return null;
-    }
 
     /**
      * 파일 읽기
@@ -124,5 +115,21 @@ public class ImageServiceImpl implements ImageService {
             e.printStackTrace();
         }
         return successCnt;
+    }
+
+    @Override
+    public ImageDto selectGalleryList() {
+        return imageDao.selectGalleryList();
+    }
+
+    // TODO 파라미터 변경예정
+    @Override
+    public Page<ImageDto> getPageList() {
+        HashMap<String, String> paramMap = new HashMap<>();
+        paramMap.put("SEARCH_KEYWORD", "cg");
+        paramMap.put("ORDER", "AUTHOR");
+        paramMap.put("ORDER_RN", "DESC");
+        PageHelper.startPage(1, 20);
+        return (Page<ImageDto>) imageDao.getPageList(paramMap);
     }
 }

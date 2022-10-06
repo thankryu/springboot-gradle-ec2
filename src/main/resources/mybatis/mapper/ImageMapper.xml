@@ -63,4 +63,63 @@ INSERT
             )
     </insert>
 
+    <select id="selectGalleryList" parameterType="java.util.HashMap"  resultType="com.gradle.springboot.image.vo.ImageDetailDto"><![CDATA[
+SELECT T.*, ROW_NUMBER() OVER(ORDER BY ${ORDER} ${ORDER_RN}, T.GALLERY_SEQ ASC) AS RN
+	FROM (SELECT
+	         GL.GALLERY_SEQ
+	       , GL.AUTHOR
+	       , GL.TYPE
+	       , GL.DEL_YN
+	       , GL.REG_DATE
+	       , GL.TAG
+	       , GL.LANG
+	       , GL.VIEW_CNT
+	       , GL.LIKE_CNT
+	       , GD.FILE_PATH
+	       , GD.FILE_NAME
+	       , (SELECT COUNT(*) FROM GALLERY_DETAIL S1 WHERE S1.GALLERY_SEQ = GL.GALLERY_SEQ) CNT
+	FROM     GALLERY GL
+	       , GALLERY_DETAIL GD
+	WHERE    GL.DEL_YN      = 'N'
+	AND      GL.GALLERY_SEQ = GD.GALLERY_SEQ
+	AND      GD.PAGE_SEQ    = 1
+	]]><if test="SEARCH_KEYWORD != null and SEARCH_KEYWORD !=''">
+        AND (
+        GL.AUTHOR LIKE '%${SEARCH_KEYWORD}%'
+        )
+    </if><![CDATA[
+	) T
+ORDER BY ${ORDER} ${ORDER_FLAG}, T.GALLERY_SEQ DESC
+		LIMIT ${PAGE_NUM},${PAGE_SIZE}
+	]]></select>
+
+
+    <select id="getPageList" parameterType="java.util.HashMap"  resultType="com.gradle.springboot.image.vo.ImageDetailDto">
+    SELECT T.*, ROW_NUMBER() OVER(ORDER BY ${ORDER} ${ORDER_RN}, T.GALLERY_SEQ ASC) AS RN
+        FROM (SELECT
+        GL.GALLERY_SEQ
+        , GL.AUTHOR
+        , GL.TYPE
+        , GL.DEL_YN
+        , GL.REG_DATE
+        , GL.TAG
+        , GL.LANG
+        , GL.VIEW_CNT
+        , GL.LIKE_CNT
+        , GD.FILE_PATH
+        , GD.FILE_NAME
+        , (SELECT COUNT(*) FROM GALLERY_DETAIL S1 WHERE S1.GALLERY_SEQ = GL.GALLERY_SEQ) CNT
+        FROM     GALLERY GL
+        , GALLERY_DETAIL GD
+        WHERE    GL.DEL_YN      = 'N'
+        AND      GL.GALLERY_SEQ = GD.GALLERY_SEQ
+        AND      GD.PAGE_SEQ    = 1
+        <if test="SEARCH_KEYWORD != null and SEARCH_KEYWORD !=''">
+        AND (
+        GL.AUTHOR LIKE '%${SEARCH_KEYWORD}%'
+        )
+    </if>
+	) T
+ORDER BY ${ORDER} ${ORDER_FLAG}, T.GALLERY_SEQ DESC
+	</select>
 </mapper>

@@ -1,8 +1,10 @@
 package com.gradle.springboot.image.vo;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class ImageDto {
     private int gallery_seq;
     private String author;
@@ -14,4 +16,7 @@ public class ImageDto {
     private int view_cnt;
     private int like_cnt;
     private int cnt;
+
+    private String file_path;
+    private String file_name;
 }
