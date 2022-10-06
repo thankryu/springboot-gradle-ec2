@@ -132,4 +132,11 @@ public class ImageServiceImpl implements ImageService {
         PageHelper.startPage(1, 20);
         return (Page<ImageDto>) imageDao.getPageList(paramMap);
     }
+
+    @Override
+    public List<ImageDetailDto> selectGalleryDetail(int gallerySeq) {
+        HashMap<String, Object> paramMap = new HashMap<>();
+        paramMap.put("GALLERY_SEQ", gallerySeq);
+        return imageDao.selectGalleryDetail(paramMap);
+    }
 }

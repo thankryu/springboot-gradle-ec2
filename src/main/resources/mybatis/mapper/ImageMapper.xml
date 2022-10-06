@@ -113,7 +113,7 @@ ORDER BY ${ORDER} ${ORDER_FLAG}, T.GALLERY_SEQ DESC
         , GALLERY_DETAIL GD
         WHERE    GL.DEL_YN      = 'N'
         AND      GL.GALLERY_SEQ = GD.GALLERY_SEQ
-        AND      GD.PAGE_SEQ    = 1
+        AND      GD.PAGE_SEQ    = 0
         <if test="SEARCH_KEYWORD != null and SEARCH_KEYWORD !=''">
         AND (
         GL.AUTHOR LIKE '%${SEARCH_KEYWORD}%'
@@ -122,4 +122,22 @@ ORDER BY ${ORDER} ${ORDER_FLAG}, T.GALLERY_SEQ DESC
 	) T
 ORDER BY ${ORDER} ${ORDER_FLAG}, T.GALLERY_SEQ DESC
 	</select>
+
+    <select id="selectGalleryDetail" parameterType="java.util.HashMap" resultType="com.gradle.springboot.image.vo.ImageDetailDto">
+        SELECT GD.GALLERY_SEQ
+             , GD.PAGE_SEQ
+             , GD.FILE_PATH
+             , GD.FILE_NAME
+             , GD.FILE_ETC
+        FROM   GALLERY_DETAIL GD
+        WHERE GD.GALLERY_SEQ = #{GALLERY_SEQ}
+    </select>
+
+    <delete id="deleteGalleryDetail" parameterType="java.util.HashMap">
+        DELETE FROM GALLERY_DETAIL WHERE GALLERY_SEQ = #{GALLERY_SEQ}
+    </delete>
+
+    <delete id="deleteGallery" parameterType="java.util.HashMap">
+        DELETE FROM GALLERY WHERE GALLERY_SEQ = #{GALLERY_SEQ}
+    </delete>
 </mapper>

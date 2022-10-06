@@ -21,4 +21,6 @@ public interface ImageRepository {
     ImageDto selectGalleryList();
 
     Page<ImageDto> getPageList(HashMap paramMap);
+
+    List<ImageDetailDto> selectGalleryDetail(HashMap paramMap);
 }
