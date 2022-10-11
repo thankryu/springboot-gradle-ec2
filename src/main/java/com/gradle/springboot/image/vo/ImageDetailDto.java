@@ -11,6 +11,8 @@ public class ImageDetailDto {
     private String file_path;
     private String file_name;
     private String file_etc;
+    private int cnt;
+    private String author;
 
     public ImageDetailDto(){
         this.gallery_seq = 0;

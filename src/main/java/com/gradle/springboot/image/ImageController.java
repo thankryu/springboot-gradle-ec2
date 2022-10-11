@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.gradle.springboot.image.service.ImageService;
 import com.gradle.springboot.image.vo.ImageDetailDto;
 import com.gradle.springboot.image.vo.ImageDto;
+import com.gradle.springboot.image.vo.SearchDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,8 +42,8 @@ public class ImageController {
 //    }
 
     @RequestMapping("/readImage")
-    public PageInfo<ImageDto> selectGalleryList() throws Exception{
-        return new PageInfo<ImageDto>(imageService.getPageList());
+    public PageInfo<ImageDto> selectGalleryList(SearchDto searchDto) throws Exception{
+        return new PageInfo<ImageDto>(imageService.getPageList(searchDto));
     }
 
     @RequestMapping("/readImageDetail/{gallerySeq}")

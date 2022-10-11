@@ -6,7 +6,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SearchDto {
-    private String search_keyword;
+    private String searchKeyword;
     private String order;
-    private String order_flag;
+    private String orderFlag;
+    private int page;
+    private int pageSize;
 }

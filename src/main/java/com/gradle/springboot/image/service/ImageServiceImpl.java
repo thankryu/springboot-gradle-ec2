@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.gradle.springboot.image.dao.ImageRepository;
 import com.gradle.springboot.image.vo.ImageDetailDto;
 import com.gradle.springboot.image.vo.ImageDto;
+import com.gradle.springboot.image.vo.SearchDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -124,12 +125,12 @@ public class ImageServiceImpl implements ImageService {
 
     // TODO 파라미터 변경예정
     @Override
-    public Page<ImageDto> getPageList() {
+    public Page<ImageDto> getPageList(SearchDto searchDto) {
         HashMap<String, String> paramMap = new HashMap<>();
-        paramMap.put("SEARCH_KEYWORD", "cg");
+        // paramMap.put("SEARCH_KEYWORD", "cg");
         paramMap.put("ORDER", "AUTHOR");
         paramMap.put("ORDER_RN", "DESC");
-        PageHelper.startPage(1, 20);
+        PageHelper.startPage(searchDto.getPage(), 20);
         return (Page<ImageDto>) imageDao.getPageList(paramMap);
     }
 

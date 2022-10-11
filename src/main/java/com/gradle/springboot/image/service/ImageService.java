@@ -2,6 +2,7 @@ package com.gradle.springboot.image.service;
 
 import com.gradle.springboot.image.vo.ImageDetailDto;
 import com.gradle.springboot.image.vo.ImageDto;
+import com.gradle.springboot.image.vo.SearchDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface ImageService {
 
     ImageDto selectGalleryList();
 
-    List<ImageDto> getPageList();
+    List<ImageDto> getPageList(SearchDto searchDto);
 
     List<ImageDetailDto> selectGalleryDetail(int gallerySeq);
 }
