@@ -19,6 +19,10 @@
     <logger name="jdbc.sqlonly" level="DEBUG" appender-ref="console-infolog" />
     <logger name="jdbc.resultsettable" level="INFO" appender-ref="console-infolog" />
 
+    <!-- 질의문 예쁘게 보기 -->
+    <logger name="org.hibernate.SQL" level="DEBUG" />
+    <!-- 질의문 파라미터 보기 -->
+    <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE" />
     <!-- Root Logger -->
     <root level="off">
         <appender-ref ref="console" />
