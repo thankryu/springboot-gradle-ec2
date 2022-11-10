@@ -1,6 +1,10 @@
 package com.gradle.springboot.jpaTest;
 
+import com.gradle.springboot.jpaTest.dto.GuestbookDTO;
+import com.gradle.springboot.jpaTest.dto.PageRequestDTO;
+import com.gradle.springboot.jpaTest.dto.PageResultDTO;
 import com.gradle.springboot.jpaTest.repository.GuestbookRepository;
+import com.gradle.springboot.jpaTest.service.GuestbookService;
 import com.querydsl.core.BooleanBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +28,9 @@ public class GuestbookRepositoryTests {
 
     @Autowired
     private GuestbookRepository guestbookRepository;
+
+    @Autowired
+    private GuestbookService service;
 
     @Test // 더미데이터생성
     public void insertDDumies(){
@@ -110,5 +117,38 @@ public class GuestbookRepositoryTests {
         result.stream().forEach(guestbook -> {
             System.out.println(guestbook);
         });
+    }
+
+
+    /**
+     * 등록 및 DTO -> Entity 변환테스트
+     */
+    @Test
+    public void testRegister(){
+
+        GuestbookDTO guestbookDTO = GuestbookDTO.builder()
+                .title("Sample Title...")
+                .content("Sample Content...")
+                .writer("user0")
+                .build();
+        System.out.println(service.register(guestbookDTO));
+    }
+
+    /**
+     * Entity 객체들을 DTO 객체로 변환 테스트
+     */
+    @Test
+    public void testList(){
+
+        // PageRequestDTO에 값을 담기
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder().page(1).size(10).build();
+        
+        // entity로 값을 가져온 후 dto로 치환하여 가져오기 
+        PageResultDTO<GuestbookDTO, Guestbook> resultDTO = service.getList(pageRequestDTO);
+
+        // 출력
+        for(GuestbookDTO guestbookDTO : resultDTO.getDtoList()){
+            System.out.println(guestbookDTO);
+        }
     }
 }
