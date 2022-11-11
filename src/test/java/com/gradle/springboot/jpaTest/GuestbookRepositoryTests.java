@@ -147,8 +147,10 @@ public class GuestbookRepositoryTests {
         PageResultDTO<GuestbookDTO, Guestbook> resultDTO = service.getList(pageRequestDTO);
 
         // 출력
-        for(GuestbookDTO guestbookDTO : resultDTO.getDtoList()){
-            System.out.println(guestbookDTO);
-        }
+//        for(GuestbookDTO guestbookDTO : resultDTO.getDtoList()){
+//            System.out.println(guestbookDTO);
+//        }
+
+        System.out.println(resultDTO);
     }
 }
