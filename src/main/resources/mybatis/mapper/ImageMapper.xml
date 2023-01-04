@@ -95,6 +95,7 @@ ORDER BY ${ORDER} ${ORDER_FLAG}, T.GALLERY_SEQ DESC
 
 
     <select id="getPageList" parameterType="java.util.HashMap"  resultType="com.gradle.springboot.image.vo.ImageDetailDto">
+/* 페이지 조회 */
     SELECT T.*, ROW_NUMBER() OVER(ORDER BY ${ORDER} ${ORDER_RN}, T.GALLERY_SEQ ASC) AS RN
         FROM (SELECT
         GL.GALLERY_SEQ

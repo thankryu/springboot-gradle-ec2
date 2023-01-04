@@ -23,7 +23,7 @@ public class ImageServiceImpl implements ImageService {
     @Autowired
     ImageRepository imageDao;
 
-    @Value("onefolder.location")
+    @Value("${onefolder.location}")
     private String FILE_PATH;
 
     /**
@@ -65,13 +65,14 @@ public class ImageServiceImpl implements ImageService {
 
                 for(ImageDto auth : authList){
                     if(folderNm.equals(auth.getAuthor())){
-                        if(imgDirArr.length > auth.getCnt() || imgDirArr.length < auth.getCnt() ){
-                            // 갤러리, 갤러리 디테일 삭제
-
-                        } else {
-                            titleBoolean = true;
-                            continue;
-                        }
+//                        if(imgDirArr.length > auth.getCnt() || imgDirArr.length < auth.getCnt() ){
+//                            // 갤러리, 갤러리 디테일 삭제
+//
+//                        } else {
+//                            titleBoolean = true;
+//                            continue;
+//                        }
+                        break;
                     }
                 }
 
@@ -127,10 +128,18 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public Page<ImageDto> getPageList(SearchDto searchDto) {
         HashMap<String, String> paramMap = new HashMap<>();
-        // paramMap.put("SEARCH_KEYWORD", "cg");
-        paramMap.put("ORDER", "AUTHOR");
-        paramMap.put("ORDER_RN", "DESC");
-        PageHelper.startPage(searchDto.getPage(), 20);
+        paramMap.put("ORDER", searchDto.getOrder());
+        paramMap.put("ORDER_FLAG", searchDto.getOrderFlag());
+        paramMap.put("SEARCH_KEYWORD", searchDto.getSearchKeyword());
+
+        // orderRn을 위한 정렬 추가
+        if("DESC".equals(searchDto.getOrderFlag())) {
+            paramMap.put("ORDER_RN", "ASC");
+        } else {
+            paramMap.put("ORDER_RN", "DESC");
+        }
+
+        PageHelper.startPage(searchDto.getPage(), 60);
         return (Page<ImageDto>) imageDao.getPageList(paramMap);
     }
 
