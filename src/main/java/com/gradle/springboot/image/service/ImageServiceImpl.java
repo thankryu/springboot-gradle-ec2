@@ -41,9 +41,12 @@ public class ImageServiceImpl implements ImageService {
         int gallerySeq = 0;
         long lastTime= 0;
 
+        String filedirTest = "D:\\OneDrive\\pic\\";
+        System.out.println("파일경로1:"+FILE_PATH);
+        System.out.println("파일경로2:"+filedirTest);
         File dir = new File(FILE_PATH);
         File[] filesArr = dir.listFiles();
-        boolean titleBoolean = false;
+        boolean titleBoolean;
         String pattern = "yyyyMMddHHmmss";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         // 작가 목록 조회
@@ -63,16 +66,16 @@ public class ImageServiceImpl implements ImageService {
                 File imgDir = new File(file.toString());
                 File[] imgDirArr = imgDir.listFiles();
 
+                // 폴더명, 작가명과 비교하여 페이지수 차이가 날 경우 처리
                 for(ImageDto auth : authList){
                     if(folderNm.equals(auth.getAuthor())){
-//                        if(imgDirArr.length > auth.getCnt() || imgDirArr.length < auth.getCnt() ){
-//                            // 갤러리, 갤러리 디테일 삭제
-//
-//                        } else {
-//                            titleBoolean = true;
-//                            continue;
-//                        }
-                        break;
+                        if(imgDirArr.length > auth.getCnt() || imgDirArr.length < auth.getCnt() ){
+                            // 갤러리, 갤러리 디테일 삭제
+                            imageDao.deleteGalleryDetail(auth);
+                            imageDao.deleteGallery(auth);
+                        } else {
+                            titleBoolean = true;
+                        }
                     }
                 }
 
@@ -83,11 +86,13 @@ public class ImageServiceImpl implements ImageService {
                 gallerySeq = imageDao.selectGallerySeq();
                 idto.setGallery_seq(gallerySeq);
                 result = imageDao.insertGallery(idto);
+
                 if(result < 1) {
                     continue;
                 }
 
                 try {
+                    // 폴더에 있는 내용 적재
                     if(folderNm != null && !"".equals(folderNm)){
                         File dir2 = new File(file.toString());
                         File[] filesArr2 = dir2.listFiles();

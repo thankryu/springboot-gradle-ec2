@@ -134,11 +134,13 @@ ORDER BY ${ORDER} ${ORDER_FLAG}, T.GALLERY_SEQ DESC
         WHERE GD.GALLERY_SEQ = #{GALLERY_SEQ}
     </select>
 
-    <delete id="deleteGalleryDetail" parameterType="java.util.HashMap">
-        DELETE FROM GALLERY_DETAIL WHERE GALLERY_SEQ = #{GALLERY_SEQ}
+    <delete id="deleteGalleryDetail" parameterType="com.gradle.springboot.image.vo.ImageDetailDto">
+/* 갤러리 상세 페이지 삭제 */
+        DELETE FROM GALLERY_DETAIL WHERE GALLERY_SEQ = #{gallery_seq}
     </delete>
 
-    <delete id="deleteGallery" parameterType="java.util.HashMap">
-        DELETE FROM GALLERY WHERE GALLERY_SEQ = #{GALLERY_SEQ}
+    <delete id="deleteGallery" parameterType="com.gradle.springboot.image.vo.ImageDetailDto">
+/* 갤러리 목록 삭제 */
+        DELETE FROM GALLERY WHERE GALLERY_SEQ = #{gallery_seq}
     </delete>
 </mapper>

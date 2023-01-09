@@ -23,4 +23,8 @@ public interface ImageRepository {
     Page<ImageDto> getPageList(HashMap paramMap);
 
     List<ImageDetailDto> selectGalleryDetail(HashMap paramMap);
+
+    void deleteGalleryDetail(ImageDto auth);
+
+    void deleteGallery(ImageDto auth);
 }
