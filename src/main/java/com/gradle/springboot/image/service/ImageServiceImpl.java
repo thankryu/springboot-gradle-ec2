@@ -6,6 +6,7 @@ import com.gradle.springboot.image.dao.ImageRepository;
 import com.gradle.springboot.image.vo.ImageDetailDto;
 import com.gradle.springboot.image.vo.ImageDto;
 import com.gradle.springboot.image.vo.SearchDto;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -16,8 +17,10 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 @Service("ImageService")
+@Slf4j
 public class ImageServiceImpl implements ImageService {
 
     @Autowired
@@ -41,28 +44,26 @@ public class ImageServiceImpl implements ImageService {
         int gallerySeq = 0;
         long lastTime= 0;
 
-        String filedirTest = "D:\\OneDrive\\pic\\";
-        System.out.println("파일경로1:"+FILE_PATH);
-        System.out.println("파일경로2:"+filedirTest);
+        Objects.requireNonNull(FILE_PATH, "file path is not null");
         File dir = new File(FILE_PATH);
         File[] filesArr = dir.listFiles();
         boolean titleBoolean;
         String pattern = "yyyyMMddHHmmss";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-        // 작가 목록 조회
-        List<ImageDto> authList = imageDao.selectGalleryAuthList();
 
-        ImageDto idto = new ImageDto();
         try {
+
+            ImageDto imageDto = new ImageDto();
+            // 작가 목록 조회
+            List<ImageDto> authList = imageDao.selectGalleryAuthList();
+
             for(File file : filesArr){
                 titleBoolean = false;
                 folderNm = file.getName();
-
                 lastTime = file.lastModified();
                 Date lastModifiedDate = new Date( lastTime );
-
-                idto.setReg_date(simpleDateFormat.format(lastModifiedDate));
-                idto.setAuthor(folderNm);
+                imageDto.setReg_date(simpleDateFormat.format(lastModifiedDate));
+                imageDto.setAuthor(folderNm);
                 File imgDir = new File(file.toString());
                 File[] imgDirArr = imgDir.listFiles();
 
@@ -84,15 +85,15 @@ public class ImageServiceImpl implements ImageService {
                 }
 
                 gallerySeq = imageDao.selectGallerySeq();
-                idto.setGallery_seq(gallerySeq);
-                result = imageDao.insertGallery(idto);
+                imageDto.setGallery_seq(gallerySeq);
+                result = imageDao.insertGallery(imageDto);
 
                 if(result < 1) {
                     continue;
                 }
 
                 try {
-                    // 폴더에 있는 내용 적재
+                    // 폴더에 있는 내용 DB에 추가
                     if(folderNm != null && !"".equals(folderNm)){
                         File dir2 = new File(file.toString());
                         File[] filesArr2 = dir2.listFiles();
@@ -108,6 +109,8 @@ public class ImageServiceImpl implements ImageService {
                             idd.setPage_seq(idx++);
                             result = imageDao.insertGalleryDetail(idd);
                         }
+
+                        log.info(folderNm+":cleared");
                     } else {
                         continue;
                     }
@@ -115,7 +118,6 @@ public class ImageServiceImpl implements ImageService {
                 } catch (Exception e){
                     e.printStackTrace();
                 }
-                System.out.println(folderNm+"::clear");
             }
 
         } catch (Exception e) {
@@ -129,7 +131,6 @@ public class ImageServiceImpl implements ImageService {
         return imageDao.selectGalleryList();
     }
 
-    // TODO 파라미터 변경예정
     @Override
     public Page<ImageDto> getPageList(SearchDto searchDto) {
         HashMap<String, String> paramMap = new HashMap<>();
@@ -145,7 +146,7 @@ public class ImageServiceImpl implements ImageService {
         }
 
         PageHelper.startPage(searchDto.getPage(), 60);
-        return (Page<ImageDto>) imageDao.getPageList(paramMap);
+        return imageDao.getPageList(paramMap);
     }
 
     @Override
