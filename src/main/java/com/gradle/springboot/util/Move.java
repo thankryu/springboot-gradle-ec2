@@ -3,7 +3,6 @@ package com.gradle.springboot.util;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 
 public class Move {
 
@@ -17,11 +16,10 @@ public class Move {
                 temp.mkdir();
                 copy(file, temp);
             } else {
-                FileInputStream fis = null;
-                FileOutputStream fos = null;
-                try {
-                    fis = new FileInputStream(file);
-                    fos = new FileOutputStream(temp) ;
+                try (
+                    FileInputStream fis = new FileInputStream(file);
+                    FileOutputStream fos = new FileOutputStream(temp);
+                ){
                     byte[] b = new byte[4096];
                     int cnt = 0;
                     while((cnt=fis.read(b)) != -1){
@@ -29,17 +27,8 @@ public class Move {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                } finally{
-                    try {
-                        fis.close();
-                        fos.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
                 }
             }
-            System.out.println("지나감");
         }
     }
 
