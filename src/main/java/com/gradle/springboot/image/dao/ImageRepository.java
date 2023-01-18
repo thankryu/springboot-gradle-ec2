@@ -3,6 +3,7 @@ package com.gradle.springboot.image.dao;
 import com.github.pagehelper.Page;
 import com.gradle.springboot.image.vo.ImageDetailDto;
 import com.gradle.springboot.image.vo.ImageDto;
+import com.gradle.springboot.util.vo.RandomVo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.HashMap;
@@ -27,4 +28,6 @@ public interface ImageRepository {
     void deleteGalleryDetail(ImageDto auth);
 
     void deleteGallery(ImageDto auth);
+
+    RandomVo selectGalleryCnt();
 }

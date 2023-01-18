@@ -6,6 +6,8 @@ import com.gradle.springboot.image.dao.ImageRepository;
 import com.gradle.springboot.image.vo.ImageDetailDto;
 import com.gradle.springboot.image.vo.ImageDto;
 import com.gradle.springboot.image.vo.SearchDto;
+import com.gradle.springboot.util.RandomUtil;
+import com.gradle.springboot.util.vo.RandomVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -154,5 +156,17 @@ public class ImageServiceImpl implements ImageService {
         HashMap<String, Object> paramMap = new HashMap<>();
         paramMap.put("GALLERY_SEQ", gallerySeq);
         return imageDao.selectGalleryDetail(paramMap);
+    }
+
+    /**
+     * 무작위 갤러리 이미지 조회
+     * @return
+     */
+    @Override
+    public int selectGalleryDetailRandom() {
+        RandomVo imageDto = imageDao.selectGalleryCnt();
+        RandomUtil randomUtil = new RandomUtil();
+        int randomResult = randomUtil.makeRandomInt(imageDto);
+        return randomResult;
     }
 }

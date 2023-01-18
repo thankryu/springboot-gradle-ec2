@@ -48,10 +48,6 @@ public class ImageController {
         return idt;
     }
 
-//    @RequestMapping("/readImage")
-//    public ImageDto selectGalleryList(){
-//        return imageService.selectGalleryList();
-//    }
     @ResponseBody
     @RequestMapping("/readImage")
     public PageInfo<ImageDto> selectGalleryList(SearchDto searchDto) throws Exception{
@@ -62,6 +58,16 @@ public class ImageController {
     @RequestMapping("/readImageDetail/{gallerySeq}")
     public List<ImageDetailDto> selectGalleryDetail(@PathVariable("gallerySeq") int gallerySeq) throws Exception{
         return imageService.selectGalleryDetail(gallerySeq);
+    }
+
+    /**
+     * 무작위 갤러리 상세 이미지 조회
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/readImageDetail/random")
+    public int selectGalleryDetailRandom() {
+        return imageService.selectGalleryDetailRandom();
     }
 
 }

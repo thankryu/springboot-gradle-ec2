@@ -17,4 +17,6 @@ public interface ImageService {
     List<ImageDto> getPageList(SearchDto searchDto);
 
     List<ImageDetailDto> selectGalleryDetail(int gallerySeq);
+
+    int selectGalleryDetailRandom();
 }
