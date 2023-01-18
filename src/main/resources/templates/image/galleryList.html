@@ -55,8 +55,18 @@ function selectGalleryList(page){
 function galleryDetail(idx){
     console.log('idx::', idx);
     window.open("/image/galleryDetail/"+idx);
+}
+
+function galleryDetailRandom(){
+    const result = axios.get('/image/readImageDetail/random', {
+
+    }).then(function (response){
+        console.log('response', response);
+        galleryDetail(response.data);
+    })
 
 }
+
 </script>
 </head>
 <body>
@@ -64,6 +74,7 @@ function galleryDetail(idx){
     <div class="input-group mb-3" >
         <input type="text" id="searchGalleryWord" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
         <button class="btn btn-primary" type="button" onclick="selectGalleryList(1)" id="button-addon2">Button</button>
+        <button class="btn btn-danger" type="button" onclick="galleryDetailRandom()" id="button-random">Random</button>
     </div>
 
     <!-- 정렬타입 -->
