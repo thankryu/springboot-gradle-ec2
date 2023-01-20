@@ -32,4 +32,6 @@ public interface ImageRepository {
     RandomVo selectGalleryCnt();
 
     void updateGalleryViewCnt(int gallerySeq);
+
+    int updateGalleryTag(ImageDto imageDto);
 }

@@ -156,5 +156,11 @@ ORDER BY ${ORDER} ${ORDER_FLAG}, T.GALLERY_SEQ DESC
         WHERE GALLERY_SEQ =${gallery_seq}
     </update>
 
+    <update id="updateGalleryTag" parameterType="com.gradle.springboot.image.vo.ImageDto">
+        /* 갤러리 태그 변경 */
+        update gallery
+        set tag  = ${tag}
+        where GALLERY_SEQ =${gallery_seq}
+    </update>
 
 </mapper>

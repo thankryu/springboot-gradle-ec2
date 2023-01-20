@@ -171,4 +171,9 @@ public class ImageServiceImpl implements ImageService {
         int randomResult = randomUtil.makeRandomInt(imageDto);
         return randomResult;
     }
+
+    @Override
+    public int updateGalleryTag(ImageDto imageDto) {
+        return imageDao.updateGalleryTag(imageDto);
+    }
 }

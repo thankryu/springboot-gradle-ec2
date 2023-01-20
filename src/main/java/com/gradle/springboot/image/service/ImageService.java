@@ -19,4 +19,7 @@ public interface ImageService {
     List<ImageDetailDto> selectGalleryDetail(int gallerySeq);
 
     int selectGalleryDetailRandom();
+
+    int updateGalleryTag(ImageDto imageDto);
+
 }

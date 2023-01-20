@@ -70,4 +70,14 @@ public class ImageController {
         return imageService.selectGalleryDetailRandom();
     }
 
+    /**
+     * 갤러리 수정 내용
+     * @param imageDto
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/readImageDetail/random")
+    public int updateGalleryTag(ImageDto imageDto) {
+        return imageService.updateGalleryTag(imageDto);
+    }
 }
