@@ -30,4 +30,6 @@ public interface ImageRepository {
     void deleteGallery(ImageDto auth);
 
     RandomVo selectGalleryCnt();
+
+    void updateGalleryViewCnt(int gallerySeq);
 }

@@ -148,4 +148,13 @@ ORDER BY ${ORDER} ${ORDER_FLAG}, T.GALLERY_SEQ DESC
 /* 무작위 이미지 조회 */
         SELECT COUNT(*) as total_cnt, Min(GALLERY_SEQ) as start_seq FROM GALLERY
     </select>
+
+    <update id="updateGalleryViewCnt" parameterType="int">
+/* 갤러리 조회 수 추가 */
+        UPDATE GALLERY
+        SET VIEW_CNT  = VIEW_CNT+1
+        WHERE GALLERY_SEQ =${gallery_seq}
+    </update>
+
+
 </mapper>

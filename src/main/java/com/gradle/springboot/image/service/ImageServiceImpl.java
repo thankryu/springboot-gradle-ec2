@@ -155,6 +155,8 @@ public class ImageServiceImpl implements ImageService {
     public List<ImageDetailDto> selectGalleryDetail(int gallerySeq) {
         HashMap<String, Object> paramMap = new HashMap<>();
         paramMap.put("GALLERY_SEQ", gallerySeq);
+        // 이미지 조회시 조회 수 추가
+        imageDao.updateGalleryViewCnt(gallerySeq);
         return imageDao.selectGalleryDetail(paramMap);
     }
 
