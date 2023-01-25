@@ -1,24 +1,30 @@
 package com.gradle.springboot.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.gradle.springboot.interceptor.JwtAuthInterceptor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.util.List;
+
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @Value("${login.whiteList}")
+    private List<String> whitList;
 
     @Value("${file.path}")
     private String filePath;
 
-    /**
-     * <img alt="로컬 이미지 읽기" src="/file/test1.jpg">*
-     * @param registry
-     */
+    @Override
+    public void addInterceptors(InterceptorRegistry registry){
+        registry.addInterceptor(new JwtAuthInterceptor())
+                .excludePathPatterns(whitList);
+    }
+
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -31,7 +37,6 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedOrigins("*")
                 .allowedMethods("GET", "POST");
-
-
     }
+
 }
