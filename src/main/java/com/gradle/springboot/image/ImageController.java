@@ -76,7 +76,7 @@ public class ImageController {
      * @return
      */
     @ResponseBody
-    @RequestMapping("/readImageDetail/random")
+    @RequestMapping("/updateImage/Tag")
     public int updateGalleryTag(ImageDto imageDto) {
         return imageService.updateGalleryTag(imageDto);
     }
