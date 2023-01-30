@@ -5,6 +5,8 @@ import com.gradle.springboot.jpaTest.dto.GuestbookDTO;
 import com.gradle.springboot.jpaTest.dto.PageRequestDTO;
 import com.gradle.springboot.jpaTest.dto.PageResultDTO;
 
+import java.util.Optional;
+
 public interface GuestbookService {
     Long register(GuestbookDTO dto);
 
@@ -34,4 +36,6 @@ public interface GuestbookService {
                 .build();
         return dto;
     }
+
+    Optional<Guestbook> findGuestbook(Long gno);
 }

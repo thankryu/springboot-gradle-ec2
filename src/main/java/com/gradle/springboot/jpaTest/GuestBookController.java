@@ -5,9 +5,9 @@ import com.gradle.springboot.jpaTest.service.GuestbookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor // 자동주입
@@ -27,6 +27,12 @@ public class GuestBookController {
         // 실제로 model에 추가되는 데이터 : PageResultDTO
         // => Model을 이용해 GuestbookServiecImpl에서 반환하는 PageResultDTO를 result 라는 이름으로 전달
         model.addAttribute("result", service.getList(pageRequestDTO));
+    }
+
+    @GetMapping("/findBook/{gno}")
+    public Optional<Guestbook> findGuestbook(@PathVariable Long gno){
+        Optional<Guestbook> guestbookDTO = service.findGuestbook(gno);
+        return guestbookDTO;
     }
 
 }
