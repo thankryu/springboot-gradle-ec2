@@ -51,4 +51,25 @@ public class GuestbookServiceImpl implements GuestbookService{
     public Optional<Guestbook> findGuestbook(Long gno) {
         return repository.findById(gno);
     }
+
+    /**
+     * 단일 내용 삭제
+     * @param gno
+     */
+    @Override
+    public void deleteById(Long gno){
+        repository.deleteById(gno);
+    }
+
+    @Override
+    public void updateByGno(Long gno, GuestbookDTO dto) {
+        Optional<Guestbook> guestbook = repository.findById(gno);
+
+        if(guestbook.isPresent()){
+            guestbook.get().setWriter(dto.getWriter());
+            guestbook.get().setTitle(dto.getTitle());
+            guestbook.get().setContent(dto.getContent());
+            repository.save(dtoToEntity(dto));
+        }
+    }
 }

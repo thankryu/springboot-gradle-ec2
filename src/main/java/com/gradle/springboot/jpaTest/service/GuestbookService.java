@@ -38,4 +38,8 @@ public interface GuestbookService {
     }
 
     Optional<Guestbook> findGuestbook(Long gno);
+
+    void deleteById(Long gno);
+
+    void updateByGno(Long gno, GuestbookDTO guestbookdto);
 }

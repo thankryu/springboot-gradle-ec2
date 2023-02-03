@@ -1,5 +1,6 @@
 package com.gradle.springboot.jpaTest;
 
+import com.gradle.springboot.jpaTest.dto.GuestbookDTO;
 import com.gradle.springboot.jpaTest.dto.PageRequestDTO;
 import com.gradle.springboot.jpaTest.service.GuestbookService;
 import lombok.RequiredArgsConstructor;
@@ -29,10 +30,34 @@ public class GuestBookController {
         model.addAttribute("result", service.getList(pageRequestDTO));
     }
 
+    /**
+     * 책 번호로 찾기
+     * @param gno
+     * @return
+     */
     @GetMapping("/findBook/{gno}")
     public Optional<Guestbook> findGuestbook(@PathVariable Long gno){
         Optional<Guestbook> guestbookDTO = service.findGuestbook(gno);
         return guestbookDTO;
+    }
+
+    /**
+     * 책번호로 삭제
+     * @param gno
+     */
+    @DeleteMapping("/deleteById/{gno}")
+    public void deleteById(@PathVariable Long gno){
+        service.deleteById(gno);
+    }
+
+    /**
+     * 책 번호로 수정
+     * @param gno
+     * @param guestbook
+     */
+    @PutMapping("/updateByGno/{gno}")
+    public void updateByGno(@PathVariable Long gno, GuestbookDTO guestbook){
+        service.updateByGno(gno, guestbook);
     }
 
 }
