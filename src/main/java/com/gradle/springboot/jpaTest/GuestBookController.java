@@ -4,6 +4,8 @@ import com.gradle.springboot.jpaTest.dto.GuestbookDTO;
 import com.gradle.springboot.jpaTest.dto.PageRequestDTO;
 import com.gradle.springboot.jpaTest.service.GuestbookService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -36,9 +38,9 @@ public class GuestBookController {
      * @return
      */
     @GetMapping("/findBook/{gno}")
-    public Optional<Guestbook> findGuestbook(@PathVariable Long gno){
+    public ResponseEntity<Guestbook> findGuestbook(@PathVariable Long gno){
         Optional<Guestbook> guestbookDTO = service.findGuestbook(gno);
-        return guestbookDTO;
+        return new ResponseEntity<>(guestbookDTO.get(), HttpStatus.OK);
     }
 
     /**
