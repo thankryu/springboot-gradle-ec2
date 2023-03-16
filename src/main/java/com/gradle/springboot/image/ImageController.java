@@ -7,6 +7,8 @@ import com.gradle.springboot.image.vo.ImageDto;
 import com.gradle.springboot.image.vo.SearchDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -33,9 +35,12 @@ public class ImageController {
     }
 
     @RequestMapping("/readFile")
-    public int readGalleryList(){
-        System.out.println("파일 읽기");
-        return imageService.readGalleryList();
+    @ResponseBody
+    public ResponseEntity readGalleryList(){
+
+        imageService.readGalleryList();
+        return new ResponseEntity(HttpStatus.OK);
+
     }
 
     @ResponseBody

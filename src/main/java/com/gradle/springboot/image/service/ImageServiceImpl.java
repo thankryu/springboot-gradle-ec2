@@ -77,7 +77,9 @@ public class ImageServiceImpl implements ImageService {
                             imageDao.deleteGalleryDetail(auth);
                             imageDao.deleteGallery(auth);
                         } else {
+                            // 동일한 내용이 있을 때
                             titleBoolean = true;
+                            break;
                         }
                     }
                 }
@@ -89,6 +91,7 @@ public class ImageServiceImpl implements ImageService {
                 gallerySeq = imageDao.selectGallerySeq();
                 imageDto.setGallery_seq(gallerySeq);
                 result = imageDao.insertGallery(imageDto);
+                System.out.println("gallerySeq:::"+gallerySeq);
 
                 if(result < 1) {
                     continue;

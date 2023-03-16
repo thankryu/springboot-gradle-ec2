@@ -6,7 +6,15 @@
 <mapper namespace="com.gradle.springboot.image.dao.ImageRepository">
 
     <select id="selectGalleryAuthList" resultType="com.gradle.springboot.image.vo.ImageDto">
-        SELECT * FROM gallery;
+        SELECT G.AUTHOR,
+               G.TYPE,
+               G.DEL_YN,
+               G.VIEW_CNT,
+               G.TAG,
+               G.LIKE_CNT,
+               G.LANG,
+               (SELECT COUNT(*) FROM gallery_detail GD WHERE GD.GALLERY_SEQ = G.GALLERY_SEQ) AS CNT
+        FROM gallery AS G;
     </select>
 
     <select id="selectGallerySeq" resultType="int">
