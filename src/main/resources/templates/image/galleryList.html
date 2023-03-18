@@ -38,8 +38,7 @@ function selectGalleryList(page){
             tableContent += '	<div class="card h-100">';
             tableContent += '		<img src="'+src1+'" class="card-img-top" onclick="galleryDetail('+resultList[i].gallery_seq+')" alt="...">';
             tableContent += '		<div class="card-body">';
-            tableContent += '			<h5 class="card-title">Card title</h5>';
-            tableContent += `			<p class="card-text">${resultList[i].author}</p>`;
+            tableContent += '			<h5 class="card-title">${resultList[i].author}</h5>';
             tableContent += '		</div>';
             tableContent += '		<div class="card-footer">';
             tableContent += `		    <small class="text-muted">${resultList[i].cnt}</small>`;

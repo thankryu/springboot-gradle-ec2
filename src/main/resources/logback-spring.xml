@@ -15,12 +15,12 @@
     </appender>
 
     <!-- Logger -->
-    <logger name="com.gradle" level="DEBUG" appender-ref="console" />
-    <logger name="jdbc.sqlonly" level="DEBUG" appender-ref="console-infolog" />
-    <logger name="jdbc.resultsettable" level="INFO" appender-ref="console-infolog" />
+    <logger name="com.gradle" level="WARN" appender-ref="console" />
+    <logger name="jdbc.sqlonly" level="WARN" appender-ref="console-infolog" />
+    <logger name="jdbc.resultsettable" level="WARN" appender-ref="console-infolog" />
 
     <!-- 질의문 예쁘게 보기 -->
-    <logger name="org.hibernate.SQL" level="DEBUG" />
+    <logger name="org.hibernate.SQL" level="INFO" />
     <!-- 질의문 파라미터 보기 -->
     <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE" />
     <!-- 질의 결과 보기 -->
